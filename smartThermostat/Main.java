@@ -52,6 +52,11 @@ class Thermostat {
         return temperature;
     }
 
+    // Getter for location
+    public String getLocation() {
+        return location;
+    }
+
     // Static getter for active count
     public static int getActiveCount() {
         return activeCount;
@@ -64,7 +69,7 @@ public class Main {
         Thermostat t1 = new Thermostat("Living Room");
         Thermostat t2 = new Thermostat("Bedroom", 25);
 
-        System.out.println("Raising temperature of Living Room:");
+        System.out.println("Raising temperature of " + t1.getLocation() + ":");
 
         for (int i = 0; i < 10; i++) {
             t1.raise();
@@ -84,5 +89,4 @@ public class Main {
 
         System.out.println("Active Thermostats: " + Thermostat.getActiveCount());
     }
-}
 }
