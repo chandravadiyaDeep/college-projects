@@ -1,29 +1,75 @@
-
-
 public class CinemaShow {
 
-        private String title;
-        private int seatAvailable;
-        private final int capacity;
+    // Private instance variables
+    private String title;
+    private int seatsAvailable;
+    private final int capacity;
 
+    // Static variable
+    private static int totalBooked = 0;
 
-        private static int totalBooked=0;
-        
-        CinemaShow(String title, int capacity)
-        {
+    // Constructor with title and capacity
+    public CinemaShow(String title, int capacity) {
+        this.title = title;
+        this.capacity = capacity;
+        this.seatsAvailable = capacity;
+    }
 
-            this.title=title;
-            this.capacity=capacity;
-            this.seatAvailable=capacity;
+    // Constructor with only title (default capacity = 100)
+    public CinemaShow(String title) {
+        this(title, 100);
+    }
+
+    // Book seats
+    public boolean book(int n) {
+        if (n <= seatsAvailable) {
+            seatsAvailable -= n;
+            totalBooked += n;
+            return true;
         }
+        return false;
+    }
 
-         CinemaShow(String title) {
-            this(title, 100);
+    // Cancel seats
+    public void cancel(int n) {
+        seatsAvailable += n;
+
+        if (seatsAvailable > capacity) {
+            seatsAvailable = capacity;
         }
+    }
 
-        
+    // Getter for seats available
+    public int getSeatsAvailable() {
+        return seatsAvailable;
+    }
 
-    }    public static void main(String[] args) {
-        
+    // Static getter for total booked seats
+    public static int getTotalBooked() {
+        return totalBooked;
+    }
+
+    // Main method
+    public static void main(String[] args) {
+
+        CinemaShow show = new CinemaShow("Avengers", 50);
+
+        System.out.println("Booking 20 seats: " + show.book(20));
+        System.out.println("Seats Available: " + show.getSeatsAvailable());
+
+        System.out.println("Booking 25 seats: " + show.book(25));
+        System.out.println("Seats Available: " + show.getSeatsAvailable());
+
+        System.out.println("Booking 10 seats: " + show.book(10));
+        System.out.println("Seats Available: " + show.getSeatsAvailable());
+
+        show.cancel(15);
+        System.out.println("After cancelling 15 seats:");
+        System.out.println("Seats Available: " + show.getSeatsAvailable());
+
+        System.out.println("Booking 10 seats: " + show.book(10));
+        System.out.println("Seats Available: " + show.getSeatsAvailable());
+
+        System.out.println("Total Successfully Booked Seats: " + CinemaShow.getTotalBooked());
     }
 }
